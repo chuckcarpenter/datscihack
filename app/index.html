@@ -41,6 +41,17 @@
     <![endif]-->
 
 
+
+	<script>
+		function showInput() {
+    			var my_search = document.getElementById("search_terms").value;
+			alert(my_search);
+			document.getElementById('display').innerHTML = my_search;
+		}
+	</script>
+
+
+
     <div class="container">
       <div class="header">
         <h1 class="text-muted"><span class="glyphicon glyphicon-thumbs-up"></span> Make Me Smart</h1>
@@ -51,7 +62,7 @@
         <p class="lead">In order to get started, enter a term and location.</p>
         <div class="row">
           <div class="col-lg-6">
-              <form>
+              <form onsubmit="showInput();">
                 <div class="form-group">
                   <input type="text" class="form-control" id="search_terms" placeholder="Search for...">
                 </div>
@@ -68,12 +79,15 @@
         <div class="col-lg-6">
           </div>
       </div>
-	
+
+
+
+<!-- GOOGLE TRENDS -->	
 	<div id="google_trends">
-	<p>GOOGLE TRENDS</p>
 	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_MAP_0_0&export=5&w=500&h=530"></script>
 	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_TABLE_0_0&export=5&w=500&h=330"></script>
 	</div>      
+
 
 
       <!-- bower:js -->
@@ -89,14 +103,6 @@
           mocha.run();
         }
 </script>
-
-
-
-
-
-
-
-
 
 
 
