@@ -4,6 +4,10 @@ $icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+html {
+	font-family: helvetica;
+}
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -91,3 +95,4 @@ body {
     border-bottom: 0;
   }
 }
+
