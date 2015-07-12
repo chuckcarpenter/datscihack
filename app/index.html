@@ -93,21 +93,14 @@
           </script>
         </div>
         <div class="col-lg-6">
+          <!-- GOOGLE TRENDS -->
+          <h4> GOOGLE TRENDS </h4>
+          <div id="google_trends">
+            <script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_MAP_0_0&export=5&w=500&h=530"></script>
+            <script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_TABLE_0_0&export=5&w=500&h=330"></script>
+          </div>
         </div>
       </div>
-
-
-
-
-<!-- GOOGLE TRENDS -->
-	<h4> GOOGLE TRENDS </h4>
-	<div id="google_trends">
-	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_MAP_0_0&export=5&w=500&h=530"></script>
-	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_TABLE_0_0&export=5&w=500&h=330"></script>
-	</div>
-
-
-
 
       <!-- bower:js -->
       <script src="/bower_components/jquery/dist/jquery.js"></script>
@@ -126,57 +119,11 @@
         </ul>
       </div>
       <!-- End twitter -->
-      <script type="text/javascript">
-
-      $('#search_terms').on('keypress', function(){
-        var term = $('#search_terms').val();
-        mms_search(term);
-        setTimeout(function(){
-        }, 250);
-      })
-
-      function mms_search(term){
-        console.log('accepted ' + term);
-        var search_url = 'http://mms-twitter-endpoint.herokuapp.com/twitter/' + encodeURI(term);
-        console.log('searching ' + search_url);
-        $.getJSON( search_url, function( data ) {
-          console.log(data.results);
-          $('.twitter_result').html('');
-
-          for(i = 0; i < data.results.length; i++){
-            console.log('rendering: ' + data.results[i]['text']);
-            $('.twitter_result').append('<li class="list-group-item"><p class="tweet-text">'+data.results[i]['text']+'</p><span class="tweet-author">'+data.results[i]['user']['']+'</span></li>');
-          }
-        });
-      }
-
-      </script>
 
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    <script>
-        if (navigator.userAgent.indexOf('PhantomJS') === -1) {
-          mocha.run();
-        }
-  </script>
-
-
-
-
-<<<<<<< HEAD
-
-
-
-
-
-
-
 
       <div class="footer">
         <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-=======
-	<div class="footer">
-        	<p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
->>>>>>> 002a704f5c4963c8ed852c2071fd5793943bf2e3
       </div>
     </div>
 
@@ -210,5 +157,9 @@
     <script src="scripts/nyt.js"></script>
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
+
+    <script>
+      if (navigator.userAgent.indexOf('PhantomJS') === -1) { mocha.run(); }
+    </script>
   </body>
 </html>
