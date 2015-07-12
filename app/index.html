@@ -57,6 +57,7 @@
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
               </form>
+          <div id="form-search" class="col-lg-6">
           </div><!-- /.col-lg-6 -->
         </div><!-- /.row -->
       </div>
@@ -92,14 +93,11 @@
             <% }) %>
           </script>
         </div>
-        <div class="col-lg-6">
-        </div>
+        <div class="col-lg-6"><div id="sl-widget"></div></div>
       </div>
 
 
-
-
-<!-- GOOGLE TRENDS -->
+    <!-- GOOGLE TRENDS -->
 	<h4> GOOGLE TRENDS </h4>
 	<div id="google_trends">
 	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_MAP_0_0&export=5&w=500&h=530"></script>
@@ -158,25 +156,9 @@
           mocha.run();
         }
   </script>
-
-
-
-
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
+  
       <div class="footer">
         <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-=======
-	<div class="footer">
-        	<p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
->>>>>>> 002a704f5c4963c8ed852c2071fd5793943bf2e3
       </div>
     </div>
 
@@ -186,8 +168,10 @@
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/underscore/underscore.js"></script>
     <script src="/bower_components/moment/moment.js"></script>
+    <script src="/bower_components/react/react.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
+    <script src="/bower_components/react/JSXTransformer.js"></script>
 
 
     <!-- build:js(.) scripts/plugins.js -->
