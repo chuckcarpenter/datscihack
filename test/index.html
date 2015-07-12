@@ -7,6 +7,11 @@
 </head>
 <body>
   <div id="mocha"></div>
+
+
+<!----<a class="twitter-timeline" href="https://twitter.com/search?q=farm%20bill" data-widget-id="619975971580481536">Tweets about farm bill</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+-->
   <script src="../bower_components/mocha/mocha.js"></script>
   <script>mocha.setup('bdd');</script>
   <script src="../bower_components/chai/chai.js"></script>
@@ -15,15 +20,34 @@
     var expect = chai.expect;
     var should = chai.should();
   </script>
+  <script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
   <!-- bower:js -->
   <!-- endbower -->
   <!-- include source files here... -->
   <!-- include spec files here... -->
   <script src="spec/test.js"></script>
-  <script>
+  <a class="twitter-timeline"  href="https://twitter.com/hashtag/corgi" data-widget-id="620253773642928128">#corgi Tweets</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<script>
     if (navigator.userAgent.indexOf('PhantomJS') === -1) {
       mocha.run();
     }
   </script>
+
 </body>
 </html>
