@@ -66,14 +66,37 @@
 
       <div class="row">
         <div class="col-lg-6">
-          </div>
+          <h4>NYT</h4>
+          <div id="nyt-articles"></div>
+          <script type="text/template" id="nyt-articles-template">
+            <% _.each(stories, function(story) { console.log(story); %>
+              <div class="media">
+              <% if ( _.findWhere(story.multimedia, {type: 'image', subtype: 'thumbnail'}) ) { %>
+                <div class="media-left">
+                  <a href="<%=story.web_url%>">
+                    <img class="media-object" src="http://www.nytimes.com/<%=_.findWhere(story.multimedia, {type: 'image', subtype: 'thumbnail'}).url %>">
+                  </a>
+                </div>
+              <% } %>
+                <div class="media-body">
+                <h5 class="media-heading">
+                  <a href="<%=story.web_url%>"><%=story.headline.main %></a></h4>
+                <small><%=moment(story.pub_date).format("MMM Do YY") %></small><br>
+                <%=story.abstract||story.snippet||story.lead_paragraph %>
+                </div>
+              </div>
+            <% }) %>
+          </script>
+        </div>
+        <div class="col-lg-6">
+        </div>
       </div>
-	
+
 	<div id="google_trends">
 	<p>GOOGLE TRENDS</p>
 	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_MAP_0_0&export=5&w=500&h=530"></script>
 	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_TABLE_0_0&export=5&w=500&h=330"></script>
-	</div>      
+	</div>
 
 
       <!-- bower:js -->
@@ -110,6 +133,8 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/underscore/underscore.js"></script>
+    <script src="/bower_components/moment/moment.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -131,6 +156,7 @@
 
 
     <!-- build:js scripts/main.js -->
+    <script src="scripts/nyt.js"></script>
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
   </body>

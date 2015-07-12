@@ -2,7 +2,9 @@
   "name": "datscihack",
   "private": true,
   "dependencies": {
-    "bootstrap-sass": "~3.3.5"
+    "bootstrap-sass": "~3.3.5",
+    "underscore": "1.8.3",
+    "moment": "2.10.3"
   },
   "overrides": {
     "bootstrap-sass": {
