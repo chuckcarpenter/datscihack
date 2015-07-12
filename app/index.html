@@ -80,7 +80,7 @@
           <h4>NYT</h4>
           <div id="nyt-articles"></div>
           <script type="text/template" id="nyt-articles-template">
-            <% _.each(stories, function(story) { console.log(story); %>
+            <% _.each(stories, function(story) { %>
               <div class="media">
               <% if ( _.findWhere(story.multimedia, {type: 'image', subtype: 'thumbnail'}) ) { %>
                 <div class="media-left">
@@ -93,6 +93,13 @@
                 <h5 class="media-heading">
                   <a href="<%=story.web_url%>"><%=story.headline.main %></a></h4>
                 <small><%=moment(story.pub_date).format("MMM Do YY") %></small><br>
+                <% if ( _.where(story.keywords, {is_major: 'Y'}).length > 0 ) { %>
+                <small>
+                <% _.each(_.where(story.keywords, {is_major: 'Y'}), function(k, i) { %>
+                <a href="#"><%=k.value %></a>,
+                <% }) %>
+                </small><br>
+                <% } %>
                 <%=story.abstract||story.snippet||story.lead_paragraph %>
                 </div>
               </div>
@@ -116,6 +123,8 @@
 
       <!-- bower:js -->
       <script src="/bower_components/jquery/dist/jquery.js"></script>
+      <script src="/bower_components/underscore/underscore.js"></script>
+      <script src="/bower_components/moment/moment.js"></script>
       <!-- endbower -->
       <!-- include source files here... -->
       <!-- include spec files here... -->
