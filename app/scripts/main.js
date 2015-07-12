@@ -1,10 +1,9 @@
-// jshint devel:true
-console.log('\'Allo \'Allo!');
-
 // load nytimes:
 $(document).ready(function() {
-  nyt('obamacare');
+  nyt('digital privacy');
 });
+
+// React app
 function get( src, query ) {
     return new Promise( (res, rej) => {
         const request = new XMLHttpRequest();
@@ -99,7 +98,7 @@ const SunlightWidget = React.createClass({
     },
     componentDidMount () {
         new Promise( ( resolve, reject )=> {
-            get( 'sunlight', 'Cool' ).then(
+            get( 'sunlight', 'Digital Privacy' ).then(
                 ( data )=> {
                     if ( !data ) { return; }
 
@@ -138,9 +137,9 @@ const SunlightWidget = React.createClass({
     }
 });
 
-React.render(
-    <SearchForm />, document.getElementById('form-search')
-);
+// React.render(
+//     <SearchForm />, document.getElementById('form-search')
+// );
 
 React.render(
     <SunlightWidget />, document.getElementById('sl-widget')

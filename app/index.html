@@ -18,18 +18,15 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
   </head>
   <body>
     <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-
-
 	<script>
 		function showInput() {
-    			var my_search = document.getElementById("search_terms").value;
+    		var my_search = document.getElementById("search_terms").value;
 			alert(my_search);
 			document.getElementById('display').innerHTML = my_search;
 		}
@@ -37,7 +34,7 @@
 
 
 
-    <div class="container">
+    <div class="container-fluid">
       <div class="header">
         <h1 class="text-muted"><span class="glyphicon glyphicon-thumbs-up"></span> Make Me Smart</h1>
       </div>
@@ -57,17 +54,19 @@
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
               </form>
-          <div id="form-search" class="col-lg-6">
+          <!-- <div id="form-search" class="col-lg-6"></div> -->
           </div><!-- /.col-lg-6 -->
         </div><!-- /.row -->
       </div>
 
       <div class="row">
         <div class="col-lg-6">
-          <h4>NYT</h4>
-          <div id="nyt-articles"></div>
+        <div class="panel panel-default">
+          <div class="panel-heading">NYT</div>
+          <ul class="list-group" id="nyt-articles"></ul>
           <script type="text/template" id="nyt-articles-template">
             <% _.each(stories, function(story) { %>
+              <li class="list-group-item">
               <div class="media">
               <% if ( _.findWhere(story.multimedia, {type: 'image', subtype: 'thumbnail'}) ) { %>
                 <div class="media-left">
@@ -90,78 +89,76 @@
                 <%=story.abstract||story.snippet||story.lead_paragraph %>
                 </div>
               </div>
+              </li>
             <% }) %>
           </script>
         </div>
-        <div class="col-lg-6"><div id="sl-widget"></div></div>
+       </div>
+       <div class="col-lg-6">
+            <!-- GOOGLE TRENDS -->
+            <div id="google_trends" class="panel panel-default">
+               <div class="panel-heading"> GOOGLE TRENDS </div>
+
+            <script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&geo=US&tz=Etc/GMT%2B4&content=1&cid=GEO_MAP_0_0&export=5&w=650&h=530"></script>
+            <script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&geo=US&tz=Etc/GMT%2B4&content=1&cid=GEO_TABLE_0_0&export=5&w=650&h=330"></script>
+            </div>
+        </div>
       </div>
 
 
-    <!-- GOOGLE TRENDS -->
-	<h4> GOOGLE TRENDS </h4>
-	<div id="google_trends">
-	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_MAP_0_0&export=5&w=500&h=530"></script>
-	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_TABLE_0_0&export=5&w=500&h=330"></script>
-	</div>
+<div class="row">
+    <div class="col-lg-6"><div id="sl-widget"></div></div>
+    <div class="col-lg-6">
 
+      <!-- Start twitter results -->
+      <div class="twitter-wrapper panel panel-default">
+        <div class="panel-heading">Twitter Results</div>
+        <ul class="twitter_result list-group">
+        </ul>
+      </div>
+      <!-- End twitter -->
 
+    </div>
+</div>
 
 
       <!-- bower:js -->
       <script src="/bower_components/jquery/dist/jquery.js"></script>
       <script src="/bower_components/underscore/underscore.js"></script>
       <script src="/bower_components/moment/moment.js"></script>
+      <script src="/bower_components/react/react.js"></script>
       <!-- endbower -->
       <!-- include source files here... -->
-      <!-- include spec files here... -->
-      <script src="spec/test.js"></script>
-
-      <!-- Start twitter results -->
-      <div class="twitter-wrapper">
-        <h1>Twitter Results</h1>
-        <ul class="twitter_result list-group">
-
-        </ul>
-      </div>
-      <!-- End twitter -->
       <script type="text/javascript">
+    //   $('#search_terms').on('keypress', function(){
+    //     var term = $('#search_terms').val();
+    //     mms_search(term);
+    //     setTimeout(function(){
+    //     }, 250);
+    //   })
+      (function mms_search(){
+        var search_url = 'http://mms-twitter-endpoint.herokuapp.com/twitter/digital+privacy';
 
-      $('#search_terms').on('keypress', function(){
-        var term = $('#search_terms').val();
-        mms_search(term);
-        setTimeout(function(){
-        }, 250);
-      })
-
-      function mms_search(term){
-        console.log('accepted ' + term);
-        var search_url = 'http://mms-twitter-endpoint.herokuapp.com/twitter/' + encodeURI(term);
         console.log('searching ' + search_url);
         $.getJSON( search_url, function( data ) {
           console.log(data.results);
           $('.twitter_result').html('');
 
           for(i = 0; i < data.results.length; i++){
+            if ( data.results[i]['user'] === undefined ) { data.results[i]['user'] = ''; }
             console.log('rendering: ' + data.results[i]['text']);
-            $('.twitter_result').append('<li class="list-group-item"><p class="tweet-text">'+data.results[i]['text']+'</p><span class="tweet-author">'+data.results[i]['user']['']+'</span></li>');
+            $('.twitter_result').append(
+                '<li class="list-group-item"><p class="tweet-text">'+data.results[i]['text']+'</p>' +
+                '<em class="tweet-author">-'+data.results[i]['user'].name +'</em></li>'
+            );
           }
         });
-      }
-
+      })();
       </script>
 
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    <script>
-        if (navigator.userAgent.indexOf('PhantomJS') === -1) {
-          mocha.run();
-        }
-  </script>
-  
-      <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
+	<div class="footer">
+        <p><span class="glyphicon glyphicon-heart"></span> from the DatSciHack team</p>
     </div>
-
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -189,7 +186,6 @@
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
     <!-- endbuild -->
-
 
     <!-- build:js scripts/main.js -->
     <script src="scripts/nyt.js"></script>
