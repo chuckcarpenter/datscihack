@@ -26,6 +26,17 @@
     <![endif]-->
 
 
+
+	<script>
+		function showInput() {
+    			var my_search = document.getElementById("search_terms").value;
+			alert(my_search);
+			document.getElementById('display').innerHTML = my_search;
+		}
+	</script>
+
+
+
     <div class="container">
       <div class="header">
         <h1 class="text-muted"><span class="glyphicon glyphicon-thumbs-up"></span> Make Me Smart</h1>
@@ -37,7 +48,7 @@
         <p class="lead">In order to get started, enter a term and location.</p>
         <div class="row">
           <div class="col-lg-6">
-              <form>
+              <form onsubmit="showInput();">
                 <div class="form-group">
                   <input type="text" class="form-control" id="search_terms" placeholder="Search for...">
                 </div>
@@ -52,11 +63,56 @@
 
       <div class="row">
         <div class="col-lg-6">
-          </div>
+          <h4>NYT</h4>
+          <div id="nyt-articles"></div>
+          <script type="text/template" id="nyt-articles-template">
+            <% _.each(stories, function(story) { %>
+              <div class="media">
+              <% if ( _.findWhere(story.multimedia, {type: 'image', subtype: 'thumbnail'}) ) { %>
+                <div class="media-left">
+                  <a href="<%=story.web_url%>">
+                    <img class="media-object" src="http://www.nytimes.com/<%=_.findWhere(story.multimedia, {type: 'image', subtype: 'thumbnail'}).url %>">
+                  </a>
+                </div>
+              <% } %>
+                <div class="media-body">
+                <h5 class="media-heading">
+                  <a href="<%=story.web_url%>"><%=story.headline.main %></a></h4>
+                <small><%=moment(story.pub_date).format("MMM Do YY") %></small><br>
+                <% if ( _.where(story.keywords, {is_major: 'Y'}).length > 0 ) { %>
+                <small>
+                <% _.each(_.where(story.keywords, {is_major: 'Y'}), function(k, i) { %>
+                <a href="#"><%=k.value %></a>,
+                <% }) %>
+                </small><br>
+                <% } %>
+                <%=story.abstract||story.snippet||story.lead_paragraph %>
+                </div>
+              </div>
+            <% }) %>
+          </script>
+        </div>
+        <div class="col-lg-6">
+        </div>
       </div>
+
+
+
+
+<!-- GOOGLE TRENDS -->
+	<h4> GOOGLE TRENDS </h4>
+	<div id="google_trends">
+	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_MAP_0_0&export=5&w=500&h=530"></script>
+	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_TABLE_0_0&export=5&w=500&h=330"></script>
+	</div>
+
+
+
 
       <!-- bower:js -->
       <script src="/bower_components/jquery/dist/jquery.js"></script>
+      <script src="/bower_components/underscore/underscore.js"></script>
+      <script src="/bower_components/moment/moment.js"></script>
       <!-- endbower -->
       <!-- include source files here... -->
       <!-- include spec files here... -->
@@ -106,6 +162,7 @@
 
 
 
+<<<<<<< HEAD
 
 
 
@@ -116,6 +173,10 @@
 
       <div class="footer">
         <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+=======
+	<div class="footer">
+        	<p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+>>>>>>> 002a704f5c4963c8ed852c2071fd5793943bf2e3
       </div>
     </div>
 
@@ -123,6 +184,8 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/underscore/underscore.js"></script>
+    <script src="/bower_components/moment/moment.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -144,6 +207,7 @@
 
 
     <!-- build:js scripts/main.js -->
+    <script src="scripts/nyt.js"></script>
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
   </body>
