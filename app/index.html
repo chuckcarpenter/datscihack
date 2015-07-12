@@ -17,23 +17,8 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-    <script>window.twttr = (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0],
-      t = window.twttr || {};
-    if (d.getElementById(id)) return t;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "https://platform.twitter.com/widgets.js";
-    fjs.parentNode.insertBefore(js, fjs);
 
-    t._e = [];
-    t.ready = function(f) {
-      t._e.push(f);
-    };
-
-    return t;
-  }(document, "script", "twitter-wjs"));</script>
-
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
   </head>
   <body>
     <!--[if lt IE 10]>
@@ -48,6 +33,7 @@
 
       <div class="jumbotron">
         <h3>Enter a search query</h3>
+
         <p class="lead">In order to get started, enter a term and location.</p>
         <div class="row">
           <div class="col-lg-6">
@@ -68,13 +54,6 @@
         <div class="col-lg-6">
           </div>
       </div>
-	
-	<div id="google_trends">
-	<p>GOOGLE TRENDS</p>
-	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_MAP_0_0&export=5&w=500&h=530"></script>
-	<script type="text/javascript" src="//www.google.com/trends/embed.js?hl=en-US&q=digital+privacy&tz=Etc/GMT%2B4&content=1&cid=GEO_TABLE_0_0&export=5&w=500&h=330"></script>
-	</div>      
-
 
       <!-- bower:js -->
       <script src="/bower_components/jquery/dist/jquery.js"></script>
@@ -82,13 +61,47 @@
       <!-- include source files here... -->
       <!-- include spec files here... -->
       <script src="spec/test.js"></script>
-      <a class="twitter-timeline"  href="https://twitter.com/hashtag/coffee" data-widget-id="620253773642928128">#corgi Tweets</a>
+
+      <!-- Start twitter results -->
+      <div class="twitter-wrapper">
+        <h1>Twitter Results</h1>
+        <ul class="twitter_result list-group">
+
+        </ul>
+      </div>
+      <!-- End twitter -->
+      <script type="text/javascript">
+
+      $('#search_terms').on('keypress', function(){
+        var term = $('#search_terms').val();
+        mms_search(term);
+        setTimeout(function(){
+        }, 250);
+      })
+
+      function mms_search(term){
+        console.log('accepted ' + term);
+        var search_url = 'http://mms-twitter-endpoint.herokuapp.com/twitter/' + encodeURI(term);
+        console.log('searching ' + search_url);
+        $.getJSON( search_url, function( data ) {
+          console.log(data.results);
+          $('.twitter_result').html('');
+
+          for(i = 0; i < data.results.length; i++){
+            console.log('rendering: ' + data.results[i]['text']);
+            $('.twitter_result').append('<li class="list-group-item"><p class="tweet-text">'+data.results[i]['text']+'</p><span class="tweet-author">'+data.results[i]['user']['']+'</span></li>');
+          }
+        });
+      }
+
+      </script>
+
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     <script>
         if (navigator.userAgent.indexOf('PhantomJS') === -1) {
           mocha.run();
         }
-</script>
+  </script>
 
 
 
@@ -101,8 +114,8 @@
 
 
 
-	<div class="footer">
-        	<p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+      <div class="footer">
+        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
       </div>
     </div>
 
